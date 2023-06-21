@@ -1,14 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class phoneno extends StatefulWidget {
   const phoneno({super.key});
 
+  static String verify='';
+
   @override
   State<phoneno> createState() => _phonenoState();
 }
 
 class _phonenoState extends State<phoneno> {
+  TextEditingController countrycode= TextEditingController();
+  var phone='';
+
+  @override
+  void initState(){
+    countrycode.text='+91';
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +62,10 @@ class _phonenoState extends State<phoneno> {
                     SizedBox(width: 20,),
                     SizedBox(
                       width: 70,
-                      child: Text('🇮🇳   +91'),
+                      child: TextField(
+                        controller: countrycode,
+                        decoration: InputDecoration(border:InputBorder.none),
+                      ),
                     ),
                     SizedBox(
                       child: Text('-'),
@@ -59,7 +73,10 @@ class _phonenoState extends State<phoneno> {
                     SizedBox(width: 20,),
                     Expanded(
                       child: TextField(
-                        keyboardType: TextInputType.number,
+                        onChanged: (value){
+                          phone=value;
+                        },
+                        keyboardType: TextInputType.phone,
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                         decoration: InputDecoration(
                             hintText: 'Mobile Number',
@@ -75,8 +92,19 @@ class _phonenoState extends State<phoneno> {
                 height: 45,
                 width: double.infinity ,
                 child:ElevatedButton(
-                  onPressed:(){
-                    Navigator.pushNamed(context,"otp");
+                  onPressed:() async{
+                    await FirebaseAuth.instance.verifyPhoneNumber(
+                      phoneNumber: '${countrycode.text+phone}',
+                      verificationCompleted: (PhoneAuthCredential credential) {},
+                      verificationFailed: (FirebaseAuthException e) {},
+                      codeSent: (String verificationId, int? resendToken) {
+                        phoneno.verify=verificationId;
+                        Navigator.pushNamed(context,"otp");
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {},
+                    );
+
+                    // Navigator.pushNamed(context,"otp");
                   },
                   child: Text('CONTINUE'),
                   style: ElevatedButton.styleFrom( primary: Colors.indigo.shade900,

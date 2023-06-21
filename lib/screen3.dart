@@ -1,3 +1,5 @@
+import 'package:app1/screen2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
@@ -9,6 +11,9 @@ class otp extends StatefulWidget {
 }
 
 class _otpState extends State<otp> {
+
+
+  final FirebaseAuth auth= FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -31,6 +36,7 @@ class _otpState extends State<otp> {
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
+    var code='';
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -64,6 +70,9 @@ class _otpState extends State<otp> {
               Pinput(
                 length: 6,
                 showCursor: true,
+                onChanged: (value){
+                  code=value;
+                },
               ),
               SizedBox(height: 20,),
               Text('Did not receive the code?',
@@ -76,11 +85,17 @@ class _otpState extends State<otp> {
                 height: 45,
                 width: double.infinity ,
                 child:ElevatedButton(
-                  onPressed:(){
-                    Navigator.pushNamed(context,"profile");
+                  onPressed:() async{
+                    try{
+                      PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneno.verify, smsCode: code);
+                      await auth.signInWithCredential(credential);
+                      Navigator.pushNamed(context,"profile");
+                    }catch(e) {
+                      print(e);
+                    }
                   },
                   child: Text('VERIFY AND CONTINUE'),
-                  style: ElevatedButton.styleFrom( primary: Colors.indigo.shade900,
+                  style: ElevatedButton.styleFrom( backgroundColor: Colors.indigo.shade900,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero)),
                 ) ,
