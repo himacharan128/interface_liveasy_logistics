@@ -25,6 +25,17 @@ The Liveasy Logistics mobile application offers the following key features:
 
 The Liveasy Logistics Mobile Application Interface is developed using the Flutter framework, which enables the creation of beautiful and highly performant native applications for iOS and Android platforms. The app leverages Firebase's authentication service for seamless and secure OTP authentication.
 
+## MY CONTRIBUTIONS
+During my work on Liveasy Logistics, I developed the interface for the Android mobile application. Liveasy Logistics is an online platform that connects truckers and shippers, aiming to streamline operations and promote transparency in the logistics industry. The mobile application, built using Flutter, offers a user-friendly experience with four key screens.
+
+The first screen allows users to select their preferred language, ensuring accessibility for a diverse user base. On the second screen, users are prompted to enter their mobile number, enabling seamless communication and verification within the app. The third screen implements OTP authentication, leveraging the power of Firebase for secure and reliable verification.
+
+Once successfully authenticated, users are welcomed into the app's interface, where they are prompted to specify their role as either a shipper or a transporter. This selection grants them access to a range of features designed to enhance their logistics experience. Users can benefit from end-to-end load visibility, enabling them to track their shipments throughout the entire process. Additionally, they can access their trip history to review past activities and gain valuable insights.
+
+Liveasy Logistics goes the extra mile by providing information on nearby petrol pumps and police stations, ensuring that users have essential resources at their fingertips. This feature enhances safety and convenience for both truckers and shippers, contributing to a more efficient and reliable logistics ecosystem.
+
+By leveraging the power of Flutter and Firebase, I successfully developed an intuitive and secure interface for the Liveasy Logistics mobile application. Join Liveasy Logistics today and experience the future of logistics management, where connectivity, transparency, and efficiency converge.
+
 ## Getting Started
 
 To run the Liveasy Logistics mobile application interface locally, follow these steps:
